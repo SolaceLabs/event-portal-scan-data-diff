@@ -1,4 +1,4 @@
-# maas-ep-config-audit-proto
+# event-portal-scan-data-diff
 
 A prototype of what event portal configuration audit could be like.
 
