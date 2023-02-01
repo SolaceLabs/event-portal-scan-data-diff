@@ -1,0 +1,216 @@
+html,
+body {
+  padding: 10;
+  margin: 10;
+  font-family: "Rubik",sans-serif;
+  /* font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif; */
+  line-height: 1.0;
+  font-size: 15px;
+  color: #000000BF
+}
+
+/* * {
+  box-sizing: border-box;
+} */
+
+a {
+  color: #0070f3;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+  
+.button {
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+.button1 {background-color: #4CAF50;} /* Green */
+.button2 {background-color: #008CBA;} /* Blue */
+.button3 {background-color: #00a0d5;} /* Blue */
+.button3:hover {background-color: #008CBA;} /* Blue */
+
+.loadscans {background-color: #4CAF50;}
+
+.hseparator {
+  color: #555555;
+  padding: 10px 25px;
+  font-size: 80%;
+}
+
+div.diff-results {
+  padding: 10px 100px;
+  background-color: 000;
+  display: block;
+}
+
+.env {
+  color: #006354;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.scan-list {
+  padding: 5px 32px;
+}
+
+/* Tab CSS */
+div.Tabs {
+  width: 95%;
+  height: auto;
+  min-height: 400px;
+  background: #f4f4f4;
+  margin: 3.5rem auto 1.5rem;
+  padding: 2rem 1rem;
+  color: #1c1d1d;
+  border-radius: 2rem;
+  white-space: nowrap;
+  @media (max-width: 769px) {
+   padding: 2rem 0;
+  }
+ }
+ 
+ ul.nav {
+  width: 60%;
+  margin: 0 auto 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid #00ad93;
+  /* border-radius: 2rem; */
+  padding-left: 0px;
+  @media (max-width: 768px) {
+    width: 90%;
+  }
+}
+ul.nav li {
+  width: 50%;
+  padding: 1rem;
+  list-style: none;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.7s;
+  background: rgb(218, 251, 246);
+}
+
+ul.nav li:hover {
+  background: #9fe1d7;
+}
+ul.nav li.active {
+  background: #00d0b1;
+}
+
+ul.nav li.non-active {
+}
+
+/* code {
+  display: block;
+  white-space: pre-wrap;
+  background: #ffffff;
+  line-height: 1.4rem;
+} */
+
+div li.active-list-item.list-item {
+  font-weight: bold;
+  background: rgb(186, 193, 188);
+}
+
+li.list-item {
+  padding: 0.4rem 0.2rem;
+  list-style: none;
+  cursor: pointer;
+}
+
+li.list-item:hover {
+  background: #cccccc; 
+}
+
+
+/* Grid CSS (for Env / MEM / MS views) */
+.grid-container {
+    display: inline-grid;
+    grid-template-columns: auto auto auto;
+    /* grid-template-columns: 33% 33% 33%; */
+    background-color: #2292ed0d;
+    padding: 5px;
+    column-gap: 5px;
+    row-gap: 5px;
+}
+
+.grid-item {
+    /* border: 1px solid rgba(0, 0, 0, 0.8); */
+    padding: 20px;
+    font-size: 20px;
+    text-align: center;
+    background-color: #cbfef7;
+}
+
+.grid-item a {
+    color: #333333;
+}
+
+div.grid-item:hover {
+    background-color: #00ad93;
+    text-decoration: none;
+    color: #FFFFFF;
+}
+
+
+/* JSON syntax highlighting */
+pre {
+    font-family: monospace;
+    font-size: 14px;
+    font-weight: 400;
+    outline: 1px solid #ccc;
+    padding: 5px;
+    margin: 5px;
+    /* background-color: #313131; */
+    line-height: 1.2rem;
+}
+
+/*** Light mode ***/
+pre {
+    background-color: rgb(244, 244, 244);
+    color: #343434;
+}
+
+pre.created {
+    background-color: rgb(231, 253, 232);
+}
+
+pre.deleted {
+    background-color: rgb(255, 230, 230);
+}
+
+pre .string { color: #277b33; }
+pre .number { color: #681297; }
+pre .boolean { color: #735a10; }
+pre .null { color: rgb(111, 25, 25); }
+pre .key { color: #144663; }
+
+/*** Dark mode ***/
+/* pre {
+    background-color: rgb(40,42,54);
+    color: #f8f8f2;
+}
+pre .string { color: #f7ff9c; }
+pre .number { color: #93b8f9; }
+pre .boolean { color: #bd93f9; }
+pre .null { color: rgb(233, 82, 82); }
+pre .key { color: #71ff94; } */

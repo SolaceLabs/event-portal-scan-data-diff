@@ -1,0 +1,35 @@
+  table.scan-table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  thead.scan-thead {
+    font-family: arial, sans-serif;
+    font-weight: bold;
+    font-size: 100%;
+  }
+  
+  thead.scan-thead tr th {
+    border: 0px;
+    text-align: left;
+    padding: 8px;
+  }
+  
+  thead.scan-thead tr:first-child:hover {
+    background-color: white;
+  }
+  
+  tr.scan-row td {
+    text-align: left;
+    padding: 8px;
+  }
+  
+  tr.scan-row:nth-child(even) {
+    background-color: #00C89519;
+  }
+  
+  tr.scan-row:hover {
+      background-color: #00000019;
+    }
+  

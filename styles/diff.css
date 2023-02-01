@@ -1,0 +1,50 @@
+/* .d2h-code-side-linenumber {
+    background-color: #ddd;
+} */
+
+.diff-created {
+    color: #006805
+  }
+  
+.diff-deleted {
+    color: #960202
+}
+
+.diff-diff {
+    color: #8d8d00
+}
+
+.diff-result {
+    background: #ffffff;
+    color: #444444;
+    line-height: 1.35rem;
+    font-family: Menlo,Consolas,monospace;
+    font-size: 13px;
+}
+
+tbody.d2h-diff-tbody tr:last-of-type {
+    padding: 5px;
+}
+  
+tbody.d2h-diff-tbody tr:nth-child(even){
+    background: #eefffe;
+}
+
+
+/*** Dark Mode ****/
+/* td.d2h-info .d2h-code-side-line {
+    background-color: rgba(65, 133, 228, 0.849);
+}
+
+tbody.d2h-diff-tbody {
+    background: #22272e;
+} 
+
+background: #22272e;
+text: #adbac7;
+red: rgba(229,83,75,0.15);
+green: rgba(70,149,74,0.15);
+change descr ( -44,15 +44,15 @@ : rgba(65,132,228,0.15);
+*/
+
+  

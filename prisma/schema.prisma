@@ -1,0 +1,91 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Environment {
+   id     String  @id @db.VarChar(255)
+   name   String? @db.VarChar(256)
+   MEM    MEM[]
+}
+
+model MEM {
+   id     String  @id @db.VarChar(255)
+   name   String? @db.VarChar(256)
+   MessagingService MessagingService[]
+   envId  String? @db.VarChar(256)
+   Environment  Environment? @relation(fields: [envId], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "env_ibfk_1")
+}
+
+model MessagingService {
+   id     String  @id @db.VarChar(255)
+   name   String? @db.VarChar(256)
+   MsScan MsScan[]
+   memId  String? @db.VarChar(256)
+   MEM    MEM?  @relation(fields: [memId], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "ms_ibfk_1")  
+}
+
+model MsScan {
+   id     String  @id @db.VarChar(255)
+   name   String? @db.VarChar(256)
+   createdTime DateTime? @db.DateTime(0)
+   msId  String? @db.VarChar(256)
+   status String? @db.VarChar(256)
+   statusDescription String? @db.VarChar(4096)
+   Entity Entity[]
+   MappedEntity MappedEntity[]
+   MessagingService MessagingService? @relation(fields: [msId], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "scan_ibfk_1")
+}
+
+model Entity {
+   id     String  @id @db.VarChar(255)
+   name   String? @db.VarChar(256)
+   rawData Json?
+   dataCollectionType String? @db.VarChar(256)
+   type   String? @db.VarChar(256)
+   scanId String? @db.VarChar(256)
+   MsScan MsScan? @relation(fields: [scanId], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "entity_ibfk_1")
+}
+
+model MappedEntity {
+   id     String  @id @db.VarChar(255)
+   name   String? @db.VarChar(256)
+   rawData   Json?
+   dataCollectionType String? @db.VarChar(256)
+   type   String? @db.VarChar(256)
+   hash   String? @db.VarChar(256)
+   scanId String? @db.VarChar(256)
+   MsScan MsScan? @relation(fields: [scanId], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "mappedentity_ibfk_1")
+}
+
+model Jobs {
+   id     String  @id @db.VarChar(255)
+   type   String? @db.VarChar(256)
+   relatedId  String? @db.VarChar(256)
+}
+
+model Nodes {
+  id     String  @id @db.VarChar(255)
+  type   String? @db.VarChar(256)
+  scanId String? @db.VarChar(256)
+  name   String? @db.VarChar(256)
+  data   Json?
+  Scans  Scans? @relation(fields: [scanId], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "nodes_ibfk_1")
+  @@index([scanId], map: "scanId")
+}
+
+model Scans {
+  id          String    @id @db.VarChar(255)
+  environment String?   @db.VarChar(256)
+  mem         String?   @db.VarChar(256)
+  name        String?   @db.VarChar(256)
+  clusterType String?   @db.VarChar(256)
+  host        String?   @db.VarChar(256)
+  scanEndTime DateTime? @db.DateTime(0)
+  uploadTime  DateTime? @default(now()) @db.DateTime(0)
+  Nodes       Nodes[]
+}

@@ -1,0 +1,28 @@
+.pagination-container {
+    display: inline-grid;
+    float: right;
+    grid-template-columns: auto auto auto;
+    padding: 5px;
+    column-gap: 5px;
+    row-gap: 5px;
+}
+
+.pagination-item {
+    background-color: rgba(255, 255, 255, 0.8);
+    /* border: 1px solid rgba(0, 0, 0, 0.8); */
+    padding: 1rem;
+    font-size: 1rem;
+    text-align: center;
+    color: #121a5b;
+}
+
+.pagination-item:hover {
+    background-color: rgba(224, 237, 241, 0.8);
+}
+
+.pagination-current {
+    padding-top: 1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    font-weight: bold;
+}

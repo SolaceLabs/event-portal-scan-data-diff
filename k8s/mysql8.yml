@@ -1,0 +1,127 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql
+spec:
+  ports:
+  - port: 3306
+  selector:
+    app: mysql
+  clusterIP: None
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql
+spec:
+  selector:
+    matchLabels:
+      app: mysql
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+      - image: mysql:8.0
+        name: mysql
+        securityContext:
+          capabilities:
+            add:
+              - SYS_NICE
+        command: ["--default-authentication-plugin=mysql_native_password --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci"]
+        env:
+          # Use secret in real usage
+        - name: MYSQL_ROOT_PASSWORD # use only for debugging
+          value: "root"
+        - name: MYSQL_DATABASE
+          value: "secret"
+        - name: MYSQL_USER
+          value: "config_user"
+        - name: MYSQL_PASSWORD
+          value: "config_password"
+        - name: MYSQL_ALLOW_EMPTY_PASSWORD
+          value: "yes"
+        ports:
+        - containerPort: 3306
+          name: mysql
+        volumeMounts:
+        - name: mysql-persistent-storage
+          mountPath: /var/lib/mysql
+        volumeMounts:
+          - name: mysql-initdb
+            mountPath: /docker-entrypoint-initdb.d
+      volumes:
+        - name: mysql-initdb
+          configMap:
+            name: mysql-initdb-config
+        - name: mysql-persistent-storage
+          persistentVolumeClaim:
+            claimName: mysql-pv-claim
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mysql-initdb-config
+data:
+  initdb.sql: |
+    CREATE DATABASE IF NOT EXISTS config_audit;
+    USE config_audit;
+    
+    CREATE TABLE IF NOT EXISTS `Environment` (
+      `id` VARCHAR(255) PRIMARY KEY,
+      `name` VARCHAR(256)
+    );
+    
+    CREATE TABLE IF NOT EXISTS `MEM` (
+      `id` VARCHAR(255) PRIMARY KEY,
+      `name` VARCHAR(256),
+      `envId` VARCHAR(256),
+      FOREIGN KEY (`envId`) REFERENCES `Environment`(`id`)
+    );
+    
+    CREATE TABLE IF NOT EXISTS `MessagingService` (
+      `id` VARCHAR(255) PRIMARY KEY,
+      `name` VARCHAR(256),
+      `memId` VARCHAR(256),
+      FOREIGN KEY (`memId`) REFERENCES `MEM`(`id`)
+    );
+    
+    CREATE TABLE IF NOT EXISTS `MsScan` (
+      `id` VARCHAR(255) PRIMARY KEY,
+      `name` VARCHAR(256),
+      `createdTime` DATETIME,
+      `msId` VARCHAR(256),
+      `status` VARCHAR(256),
+      `statusDescription` VARCHAR(4096),
+      FOREIGN KEY (`msId`) REFERENCES `MessagingService`(`id`)
+    );
+    
+    CREATE TABLE IF NOT EXISTS `Entity` (
+      `id` VARCHAR(255) PRIMARY KEY,
+      `name` VARCHAR(256),
+      `dataCollectionType` VARCHAR(256),
+      `type` VARCHAR(256),
+      `scanId` VARCHAR(256),
+      `rawData` JSON,
+      FOREIGN KEY (`scanId`) REFERENCES `MsScan`(`id`)
+    );
+    
+    CREATE TABLE IF NOT EXISTS `Jobs` (
+      `id` VARCHAR(255) PRIMARY KEY,
+      `type` VARCHAR(256),
+      `relatedId` VARCHAR(256)
+    );
+    
+    CREATE TABLE IF NOT EXISTS `MappedEntity` (
+      `id` VARCHAR(255) PRIMARY KEY,
+      `name` VARCHAR(256),
+      `dataCollectionType` VARCHAR(256),
+      `type` VARCHAR(256),
+      `scanId` VARCHAR(256),
+      `hash` VARCHAR(256),
+      `rawData` JSON,
+      FOREIGN KEY (`scanId`) REFERENCES `MsScan`(`id`)
+    );
