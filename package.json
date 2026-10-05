@@ -14,7 +14,7 @@
     "diff2html": "^3.4.16",
     "gray-matter": "^4.0.2",
     "html-react-parser": "^1.4.8",
-    "moment": "^2.29.1",
+    "moment": "^2.31.0",
     "next": "latest",
     "react": "17.0.2",
     "react-dom": "17.0.2",
